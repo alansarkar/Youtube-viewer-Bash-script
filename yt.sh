@@ -6,7 +6,12 @@ color4='tput setaf 11' #yelow
 color5='tput setaf 1'  #red
 color6='tput setaf 14'  
 
-rm -rf /home/$(whoami)/.ytcache
+sandbox='firejail' 
+#$names='| grep '{"accessibilityData":{"label":"' -F  | sed 's/"}],"accessibility":{"accessibilityData":{"label":"/\n/g' | cut -d' ' -f1-10  | tail -n +2 '
+#$links='| grep '","webPageType' \| sed 's/\",\"webPageType/\n/g'  | grep watch?v | sed 's/.*\/watch?v=//g' | cut -d' ' -f1 '
+
+tag="$@"
+rm -rf /tmp/.ytcache
 /bin/clear
 re=1
 #redo
@@ -23,12 +28,18 @@ echo $($color1)  "*********************************$(tput sgr 0)"
 echo $($color3)  " Enter what you want to search:$(tput sgr 0)"
 read x ;
 clear
-#echo $x
 
-#echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreload=50)"  | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-playlist vve-check clearfix"' > /home/jerome/.ytcache
-#grep without any playlist
-#echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreload=50)"  | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-playlist vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="yt-lockup-playlist-item-length">' > /home/jerome/.ytcache
-echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreeload=10)"      | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-play    list vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="    yt-lockup-playlist-item-length">' > /home/jerome/.ytcache
+##   pulling name ######    
+
+
+#echo "$($sandbox /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreeload=10)"      | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-play    list vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="    yt-lockup-playlist-item-length">' > /tmp/.ytcache
+
+echo "$($sandbox /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreeload=10)" > /tmp/.ytcache 
+## name
+cat /tmp/.ytcache   | grep '{"accessibilityData":{"label":"' -F  | sed 's/"}],"accessibility":{"accessibilityData":{"label":"/\n/g' | cut -d' ' -f1-10  | tail -n +2   > /tmp/.ytname
+## link
+cat /tmp/.ytcache  | grep '","webPageType' | sed 's/\",\"webPageType/\n/g'  | grep watch?v | sed 's/.*\/watch?v=//g' | cut -d' ' -f1   > /tmp/.ytlink
+
 
 
 #re view search result
@@ -37,28 +48,21 @@ while [ $re2 -eq 1 ]
 do
 y=1
 
-z=$(cat /home/$(whoami)/.ytcache | cut -c282-400 | sed 's/" aria.*//g; s/^/ 1. /g'  | wc -l)
+z=$(cat /tmp/.ytname | wc -l ) 
 
-#echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreload=10)"  | grep '<a href="/watch?v=' 
+#echo "$($sandbox /usr/bin//usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreload=10)"  | grep '<a href="/watch?v=' 
 
 
 while [ $y  -le $z ]
 do
 
 printf  " $($color3) $y. "
-#cat /home/$(whoami)/.ytcache |  sed   's/.*"  title="//g; s/" aria.*//g'  | head -$y | tail -1
-#cat /home/$(whoami)/.ytcache | cut -c282-400 | sed 's/.*title="//g; s/" aria.*//g' | head -$y | tail -1
-#echo  "\e[1;33m$(cat /home/$(whoami)/.ytcache  | sed 's/.*"  title="//g; s/" aria.*//g; s/rel="spf-prefetch//g'| head -$y | tail -1)"
-#echo $($color4)  "$(cat /home/$(whoami)/.ytcache | sed 's/.*"  title="//g; s/" aria.*//g; s/" rel="spf-prefetch//g' |head -$y | tail -1)"
-echo $($color4)  "$(cat /home/$(whoami)/.ytcache | sed 's/.*"  title="//g; s/" aria.*//g; s/" rel="spf-prefetch//g; s/&amp;/\&/g' |head -$y | tail -1)$(tput sgr 0)"
 
+## echo  name
+echo $($color4)  "$(cat /tmp/.ytname  |head -$y | tail -1)$(tput sgr 0)"
 
-#channel
-#cat .ytcache  | grep /channel/  | sed 's/.*><a href="//g; s/" class="yt-uix-sessionlink.*//g' | head -$y | tail -1
-#cat .ytcache  | grep /channel/  | sed 's/.*><a href="//g; s/.*" >//g; s/<\/a><\/div>.*//g' 
-
-#cat /home/$(whoami)/.ytcache | cut -c282-400  | sed 's/" aria.*//g' | head -$y | tail -1
-cat /home/$(whoami)/.ytcache | cut -c85-95| head -$y | tail -1
+## echo channel
+cat /tmp/.ytlink | head -$y | tail -1
 
 echo " " 
 
@@ -71,14 +75,18 @@ echo  "$($color3) Enter n to go to other pages"$(tput sgr 0)
 read p ;
 
 
-if [[ "$p" != q ]]  && [[  "$p" != n ]]  && [[ "$p" =~ ^[0-9]+$ ]]
+if [[ "$p" != q ]] && [[ "$p" != n ]] && [[ "$p" =~ ^[0-9]+$ ]]
 then
-q=$(cat /home/$(whoami)/.ytcache | cut -c85-95 | head -$p | tail -1 )
+
+
+
+q=$(cat /tmp/.ytlink | head -$p | tail -1 )
+
 clear
 
 echo $($color1)  " Now Playing: "
 echo " "
-echo $($color4)  "$(cat /home/$(whoami)/.ytcache  | sed 's/.*"  title="//g; s/" aria.*//g; s/rel="spf-prefetch//g; s/&amp;/\&/g'| head -$p | tail -1)$(tput sgr 0)"
+echo $($color4)  "$(cat /tmp/.ytname | head -$p | tail -1)$(tput sgr 0)"
 echo $($color4)  "$(echo "Link: https://www.youtube.com/watch?v=$q")$(tput sgr 0)"
 
 echo " "
@@ -87,15 +95,22 @@ echo $($color1)  " Description: $(tput sgr 0)"
 #then
 #echo : enter the number you want to see"
 #read q
-echo $($color6)  "$(firejail wget -qO-  "https://www.youtube.com/watch?v=$q" | grep "watch-description-extras"  | sed 's/<br[^>]*>/\n/g; s/<[^>]*>//g')$(tput sgr 0)"
+echo $($color6)  "$("$sandbox" /usr/bin/wget -qO-  "https://www.youtube.com/watch?v=$q" | grep "watch-description-extras"  | sed 's/<br[^>]*>/\n/g; s/<[^>]*>//g')$(tput sgr 0)"
 #fi
 echo "" 
 
 
-firejail --quiet   mpv --ytdl-format=best --quiet "https://www.youtube.com/watch?v=$q"
+#####  video play ###########
+
+#### #mpv
+#"$sandbox" --quiet  --private --disable-mnt --noexec=all --nonewprivs --noroot mpv --brightness 7 --geometry 800x450 --quiet   $tag  --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.129 Safari/537.36" --ytdl-format=best  "https://www.youtube.com/watch?v=$q"
+#### ffplay 
+#"$sandbox"  --private --noroot --quiet youtube-dl  --user-agent "fucku" -f best -c -q  "https://www.youtube.com/watch?v=$q" -o - |   ffplay -loglevel quiet  -
+"$sandbox"  --private --noroot --quiet /usr/bin/youtube-dl  -q --user-agent "fucku"  -c  "https://www.youtube.com/watch?v=$q" -o - |   /usr/bin/mpv  --really-quiet    -
+#/bin/sh /home/$(whoami)/my\ scripts/mpv.sh "https://www.youtube.com/watch?v=$q" 
 
 mpv=1 # for conflict
-
+#clear
 
 fi
 
@@ -105,14 +120,18 @@ then
 clear
 re2=0
 #re=q   # complete exit var
-rm -rf /home/$(whoami)/.ytcache
+rm -rf /tmp/.ytcache
+rm -rf /tmp/.ytlink
+rm -rf /tmp/.ytname
 fi
 #echo "see the search result again? press 1"
 #read re2;
 #re2=p
 
 
-#next page
+
+
+######## next page   ######
 if [ "$p" = n ]
 then
 echo $(tput sgr 15)"Enter the page number$(tput sgr 0)"
@@ -120,20 +139,21 @@ read xx
 
 if [ "$xx" -eq 1 ] && [[ "$xx" =~ ^[0-9]+$ ]]
 then
-echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreeload=10)"      | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-play    list vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="    yt-lockup-playlist-item-length">' > /home/jerome/.ytcache
-fi
+#echo nano
+echo "$("$sandbox" /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$x"&spfreeload=10)"      | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-playlist vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="yt-lockup-playlist-item-length">' > /tmp/.ytcache
+    fi
 
 if [ "$xx" != 1 ] && [[ "$xx" =~ ^[0-9]+$ ]]
 then
 xx=$(expr $xx - 1) 
 clear
-page=$(echo "="$( (wget -qO- https://www.youtube.com/results?search_query=linux&spfreload=10) | grep '="Go to page' | sed 's/.*results?search_query=//g' |sed 's/.*;sp=//g' | sed 's/" class="yt-uix-button.*//g' | sed '1d' | head -$xx | tail -1 )"&spfreeload=10")
+page=$(echo "="$( ("$sandbox" /usr/bin/wget -qO- https://www.youtube.com/results?search_query="$x"&page="$xx") | grep '="Go to page' | sed 's/.*results?search_query=//g' |sed 's/.*;sp=//g' | sed 's/" class="yt-uix-button.*//g' | sed '1d' | head -$xx | tail -1 ))
 rage="$x&sp$page"
-#echo $rage
+echo $rage
 echo $($color2)"page no $(expr $xx + 1)$(tput sgr 0)"
 echo "URL: https://www.youtube.com/results?search_query="$rage" "
 echo ""
-echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$rage")" | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-playlist vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="yt-lockup-playlist-item-length">' > /home/jerome/.ytcache
+echo "$("$sandbox" /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$rage")" | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-playlist vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="yt-lockup-playlist-item-length">' > /tmp/.ytcache
 fi
 fi # end of $p = n
 
@@ -142,7 +162,7 @@ fi # end of $p = n
 if  (([ "$p" != n ] && [ "$p" != q  ]) && [ "$mpv" != 1 ])
 then
  
-echo "$(firejail wget -qO-  https://www.youtube.com/results?search_query="$p"&spfreeload=10)"      | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-play    list vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="    yt-lockup-playlist-item-length">' > /home/jerome/.ytcache
+echo "$("$sandbox" /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$p"&spfreeload=10)"      | grep '<a href="/watch?v=' | grep -v  '<li><div class="yt-lockup yt-lockup-tile yt-lockup-play    list vve-check clearfix"' | grep -v '<li class="yt-lockup-playlist-item clearfix"><span class="    yt-lockup-playlist-item-length">' > /tmp/.ytcache
 x="$p"
 fi
 
@@ -158,4 +178,6 @@ clear
 #read  re;
 clear
 done
-rm -rf /home/$(whoami)/.ytcache
+rm -rf /tmp/.ytlink
+rm -rf /tmp/.ytname
+rm -rf /tmp/.ytcache
