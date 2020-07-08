@@ -27,6 +27,6 @@ mostly just run the script and type what ever you want to search and thats it.
 * Enter 'n' to switch through pages
 
 #### older verson folder
-This version is actually for Distributions  with stable repositories or older versions of packages <br >
-If you have Debian stable or a  similiar distro.
-you might want to download this version to fixing the text output error<br >
+As this is my personal used script I'm just keeping the older scripts which are useless as youtube updates there sites just for future reference.
+The old version were  actually for Distributions  either of old stable repositories or rolling versions of distros <br >
+
