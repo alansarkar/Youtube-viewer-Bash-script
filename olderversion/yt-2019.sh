@@ -1,4 +1,6 @@
 #!/usr/bin/env bash 
+
+##### this is older version before 2020 update
 color1="tput setaf 15" #white
 color2='tput setaf 05' #pink
 color3='tput setaf 6'  #blue 
