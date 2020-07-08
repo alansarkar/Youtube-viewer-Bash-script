@@ -9,7 +9,7 @@ go to other pages and  then select what  video you would like to watch.
 ## Dependency 
 * wget <br>
 * youtube-dl <br>
-* mpv <br>
+* mpv (Any video player works but  you need to add it to the script )  <br>
 * firejail (sandbox for privacy) <br>
 
 ## Installation
