@@ -17,7 +17,7 @@ go to other pages and  then select what  video you would like to watch.
 
 Open a terminal window and just do this: <br >
 
-<code> wget https://raw.githubusercontent.com/alansarkar/Youtube-viewer-Bash-script/master/yt.sh && chmod +x yt.sh  && ./yt.sh</code >
+<code> wget https://raw.githubusercontent.com/alansarkar/Youtube-viewer-Bash-script/master/yt.sh && chmod +x yt.sh  && ./yt.sh</code > <br>
 And your using the script ...
 
 ## Usage
