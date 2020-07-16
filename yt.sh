@@ -6,7 +6,7 @@ color4='tput setaf 11' #yelow
 color5='tput setaf 1'  #red
 color6='tput setaf 14'  
 
-sandbox='firejail' 
+sandbox="firejail  --private --noroot --quiet "
 #$names='| grep '{"accessibilityData":{"label":"' -F  | sed 's/"}],"accessibility":{"accessibilityData":{"label":"/\n/g' | cut -d' ' -f1-10  | tail -n +2 '
 #$links='| grep '","webPageType' \| sed 's/\",\"webPageType/\n/g'  | grep watch?v | sed 's/.*\/watch?v=//g' | cut -d' ' -f1 '
 
@@ -98,7 +98,7 @@ echo $($color1)  " Description: $(tput sgr 0)"
 
 ##################        discreaption ######################
 
-echo $($color6)  "$("$sandbox" /usr/bin/wget  --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Firefox/52.9 (Pale Moon)"  -qO-  "https://www.youtube.com/watch?v=$q" |  grep '},\"description\":{\"simpleText\":\"'  | sed 's/.*},\"description\":{\"simpleText\":\"//g;s/"},"lengthSeconds":".*//g;s/\\n/\n/g'   )$(tput sgr 0)"
+echo $($color6)  "$($sandbox /usr/bin/wget  --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Firefox/52.9 (Pale Moon)"  -qO-  "https://www.youtube.com/watch?v=$q" |  grep '},\"description\":{\"simpleText\":\"'  | sed 's/.*},\"description\":{\"simpleText\":\"//g;s/"},"lengthSeconds":".*//g;s/\\n/\n/g'   )$(tput sgr 0)"
 #fi
 echo "" 
 
@@ -109,7 +109,7 @@ echo ""
 #"$sandbox" --quiet  --private --disable-mnt --noexec=all --nonewprivs --noroot mpv --brightness 7 --geometry 800x450 --quiet   $tag  --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.129 Safari/537.36" --ytdl-format=best  "https://www.youtube.com/watch?v=$q"
 #### ffplay 
 #"$sandbox"  --private --noroot --quiet youtube-dl  --user-agent "fucku" -f best -c -q  "https://www.youtube.com/watch?v=$q" -o - |   ffplay -loglevel quiet  -
-"$sandbox"  --private --noroot --quiet /usr/bin/youtube-dl  -q --user-agent "fucku"  -c  "https://www.youtube.com/watch?v=$q" -o - |   $player   -
+$sandbox /usr/bin/youtube-dl  -q --user-agent "fucku"  -c  "https://www.youtube.com/watch?v=$q" -o - |   $player   -
 #/bin/sh /home/$(whoami)/my\ scripts/mpv.sh "https://www.youtube.com/watch?v=$q" 
 
 mpv=1 # for conflict
@@ -146,7 +146,7 @@ then
 #xx=$(expr $xx - 1)  ### exclude page 1
 clear
 #### page number main search ####
-echo "$("$sandbox" /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$x"&page=$xx)"       > /tmp/.ytcache
+echo "$($sandbox /usr/bin/wget -qO-  https://www.youtube.com/results?search_query="$x"&page=$xx)"       > /tmp/.ytcache
 
 
 page=$(cat /tmp/.ytname  | head -$xx | tail -1 )
@@ -168,7 +168,7 @@ fi # end of $p = n
 if  (([ "$p" != n ] && [ "$p" != q  ]) && [ "$mpv" != 1 ])
 then
  
-echo "$("$sandbox" /usr/bin/wget  --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Firefox/52.9 (Pale Moon)" -qO-  https://www.youtube.com/results?search_query="$p"&spfreeload=10)"      > /tmp/.ytcache
+echo "$($sandbox /usr/bin/wget  --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Firefox/52.9 (Pale Moon)" -qO-  https://www.youtube.com/results?search_query="$p"&spfreeload=10)"      > /tmp/.ytcache
 x="$p"
 fi
 
