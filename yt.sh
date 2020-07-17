@@ -6,7 +6,7 @@ color4='tput setaf 11' #yelow
 color5='tput setaf 1'  #red
 color6='tput setaf 14'  
 
-sandbox="firejail  --private --noroot --quiet "
+sandbox="firejail "
 #$names='| grep '{"accessibilityData":{"label":"' -F  | sed 's/"}],"accessibility":{"accessibilityData":{"label":"/\n/g' | cut -d' ' -f1-10  | tail -n +2 '
 #$links='| grep '","webPageType' \| sed 's/\",\"webPageType/\n/g'  | grep watch?v | sed 's/.*\/watch?v=//g' | cut -d' ' -f1 '
 
