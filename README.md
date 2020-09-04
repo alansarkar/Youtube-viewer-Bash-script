@@ -11,7 +11,7 @@ This script can view youtube thumbnails too
 But It is disable default 
 #To enable this feature just change the value to 1 for the variable Imageenable at line 18 </br>
 Default it uses tiv to show the images <br>
-You can change It at line 46 to any of your favourate cli image viewer 
+You can change It at line 46 to any of your favourate cli image viewer  <br>
 or you can install tiv from here https://github.com/stefanhaustein/TerminalImageViewer
 
 
