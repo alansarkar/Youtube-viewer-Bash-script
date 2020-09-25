@@ -20,7 +20,7 @@ color6='tput setaf 14'
 
 
 imageenable=0  ##  0 disable 1 to enable 
-#sandbox=/opt/firejail/bin/firejail 
+#sandbox=/bin/firejail 
 #f='--noroot --private-cache  --quiet  --noroot --nonewprivs    --seccomp  '
 
 sandbox_flag="$sandbox $f " 
