@@ -1,7 +1,7 @@
 # Youtube-viewer-Bash-script
 
-Watch youtube videos with runing this simple bash script <br>
-only 100 line bash script code simple script 
+Scrape Youtube by runing this simple bash script <br>
+A simple and super fast scraping  script That can search youtube and get content
 
 This is a simple script just search what you type and then can scroll and  <br>
 go to other pages and  then select what  video you would like to watch.
@@ -9,9 +9,9 @@ go to other pages and  then select what  video you would like to watch.
 # Image support 
 This script can view youtube thumbnails too 
 But It is disable default 
-#To enable this feature just change the value to 1 for the variable Imageenable at line 18 </br>
+#To enable this feature just change the value to 1 for the variable Imageenable </br>
 Default it uses tiv to show the images <br>
-You can change It at line 46 to any of your favourate cli image viewer  <br>
+You can change It to any of your favourate cli image viewer  <br>
 or you can install tiv from here https://github.com/stefanhaustein/TerminalImageViewer
 
 
@@ -42,6 +42,6 @@ mostly just run the script and type what ever you want to search and thats it.
 
 
 #### older verson folder
-As this is my personal used script I'm just keeping the older scripts which are useless as youtube updates there sites just for future reference.
+As this is my personal used script I'm just keeping the older scripts which are useless as youtube updates there site.
 The old version were  actually for Distributions  either of old stable repositories or rolling versions of distros <br >
 
