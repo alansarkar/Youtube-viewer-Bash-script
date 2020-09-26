@@ -9,13 +9,13 @@ go to other pages and  then select what  video you would like to watch.
 # Image support 
 This script can view youtube thumbnails too 
 But It is disable default 
-#To enable this feature just change the value to 1 for the variable Imageenable </br>
+#To enable this feature just use <code>--image</code> while running the scripts </br>
 Default it uses tiv to show the images <br>
 You can change It to any of your favourate cli image viewer  <br>
 or you can install tiv from here https://github.com/stefanhaustein/TerminalImageViewer
-
-
-
+# Saves Watch history 
+You can view watch history now <br>
+Type <code>--help </code> to kown more about It.
 
 ## Dependency 
 * wget <br>
