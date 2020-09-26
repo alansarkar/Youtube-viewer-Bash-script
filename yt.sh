@@ -1,7 +1,7 @@
 #!/bin/env bash 
 umask 0034
 unalias -a 
-unset  $GROUPS
+#unset  $GROUPS
 unset PATH
 export PATH=$PATH:/usr/bin/:~/.local/bin:~/my\ scripts
 rm -rf $imputdir 
@@ -9,15 +9,15 @@ rm -rf $imputdir
 player="/usr/bin/mpv   --really-quiet " 
 imageviewer="tiv" #-h 40 -w 40  "
 
-sandbox=/opt/firejail/bin/firejail 
-f='--noroot --private-cache  --quiet  --noroot --nonewprivs    --seccomp  '   ## firejail config for this script
+#sandbox=/bin/firejail 
+#f='--noroot --private-cache  --quiet  --noroot --nonewprivs    --seccomp  '   ## firejail config for this script
 sandbox_flag="$sandbox $f " 
 scraper_flag="$scraper $scrap_flag"
 
 scraper="/bin/wget"
 scrap_flag='--user-agent="$useragent"  -qO -   '  #scrap_flag=' -s  -H "User-Agent: $useragent" -A "$useragent" '
-
-useragent="`random.exe`"                         #useragent="Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Firefox/52.9 (Pale Moon)"
+#useragent="`random.exe`"                         
+useragent="Mozilla/5.0 (X11; Linux x86_64; rv:52.9) Gecko/20100101 Firefox/52.9 (Pale Moon)"
 
 searchlink="https://youtube.com/results?search_query="
 watchlink="https://www.youtube.com/watch?v="
