@@ -192,9 +192,9 @@ echo ""
 
 #####  video play ###########
 
-$HOME/my\ scripts/mpdl.sh "$watchlink$q"
+#$HOME/my\ scripts/mpdl.sh "$watchlink$q"
 
-#$sandbox  youtube-dl  -q --user-agent "$useragent"  -c  "$watchlink$q" -o - |   $player   -
+$sandbox  youtube-dl  -q --user-agent "$useragent"  -c  "$watchlink$q" -o - |   $player   -
 history "$show_title: $watchlink$q "
 mpv=1 # for conflict
 #clear
