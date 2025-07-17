@@ -19,7 +19,7 @@ Type <code>--help </code> to kown more about It.
 
 ## Dependency 
 * wget <br>
-* youtube-dl <br>
+* yt-dlp <br>
 * mpv (Any video player works but  you need to add it to the script )  <br>
 * firejail (sandbox for privacy) <br>
 
