@@ -5,7 +5,7 @@ unalias -a
 unset PATH
 export PATH=$PATH:/usr/bin/:~/.local/bin:~/my\ scripts
 rm -rf $imputdir 
-
+scrapetool=yt-dlp
 player="/usr/bin/mpv   --really-quiet " 
 imageviewer="tiv" #-h 40 -w 40  "
 
@@ -194,7 +194,7 @@ echo ""
 
 #$HOME/my\ scripts/mpdl.sh "$watchlink$q"
 
-$sandbox  youtube-dl  -q --user-agent "$useragent"  -c  "$watchlink$q" -o - |   $player   -
+$sandbox  "$scrapetool"  -q --user-agent "$useragent"  -c  "$watchlink$q" -o - |   $player   -
 history "$show_title: $watchlink$q "
 mpv=1 # for conflict
 #clear
