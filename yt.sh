@@ -6,6 +6,11 @@ unset PATH
 export PATH=$PATH:/usr/bin/:~/.local/bin:~/my\ scripts
 rm -rf $imputdir 
 scrapetool=yt-dlp
+if [ ! -f $HOME/.local/bin/yt-dlp ]; then
+  # curl -L -o  "$HOME/.local/bin/yt-dlp"  https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp && chmod +x "$HOME/.local/bin/yt-dlp"
+   wget -P "$HOME/.local/bin/"  https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp && chmod +x "$HOME/.local/bin/yt-dlp"
+fi
+
 player="/usr/bin/mpv   --really-quiet " 
 imageviewer="tiv" #-h 40 -w 40  "
 
